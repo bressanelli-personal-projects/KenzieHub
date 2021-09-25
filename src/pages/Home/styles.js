@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
-import tablet from '../../assets/tablet.png';
+import background_PC from '../../assets/background_PC.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems:'center',
         justifyContent: 'center',
         height: '100vh',
-        backgroundImage: `url(${tablet})`,
+        backgroundImage: `url(${background_PC})`,
         backgroundSize: 'cover',
         backgroundAttachment: 'fixed'
     },

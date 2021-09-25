@@ -1,16 +1,21 @@
 import { makeStyles } from "@material-ui/styles";
+import background_signup from '../../assets/background_signup.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexBasis: 1,       
     }, 
     
-    container: {
+    container: {        
         backgroundColor: '#007aff',
-        alignItems:'center',
+        backgroundImage: `url(${background_signup})`,
+        backgroundSize: '100%',
+        backgroundAttachment: 'fixed',
+        // alignItems:'center',
         justifyContent: 'center',
         alignContent: 'center',
-        height: '100vh',  
+        alignSelf: 'center',
+        // height: '100%',  
         padding: '10px',
     },
 
@@ -19,22 +24,22 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-around',       
-        padding: '40px 0px',   
+        padding: '20px 0px',   
         background: 'linear-gradient(45deg, #bbdefb 40%, #fff9c4 90%)',  
-        boxSizing: 'border-box',                           
+        boxSizing: 'border-box', 
+        // opacity: 0.2,                         
     },
 
     form: {
         width: '60%',
+    },    
+
+    svg: {
+        marginLeft: '20px',
     },
-    
-    grid: {
-        maxWidth: '800px',
-        height: '100vh',
-        justifyContent: 'center',
-        alignItems:'center', 
-        margin: '0 auto',
-        
+
+    link: {
+        textDecoration: 'none',
     },
            
 }));

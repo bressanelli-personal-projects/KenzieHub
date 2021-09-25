@@ -1,6 +1,8 @@
-import { Container, Box, Button, Paper } from "@material-ui/core";
+import { Box, Button, Paper } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import useStyles from "./styles";
+import LoginIcon from '@mui/icons-material/Login';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
 
 const Home = () => {
@@ -9,7 +11,7 @@ const Home = () => {
 
     return(
 
-        <Box container className={classes.container}>
+        <Box className={classes.container}>
 
         
             <h1 className={classes.title}>KENZIE HUB</h1>
@@ -17,11 +19,12 @@ const Home = () => {
 
         
 
-            <Paper className={classes.paper} container elevation={10}>
+            <Paper className={classes.paper} elevation={10}>
 
                 <Link className={classes.link} to='login'>
 
                     <Button
+                        endIcon={<LoginIcon />}
                         fullWidth 
                         variant='contained'
                         color='primary'
@@ -33,12 +36,12 @@ const Home = () => {
                 </Link>
             </Paper>
 
-            <Paper className={classes.paper} container elevation={10}>
+            <Paper className={classes.paper} elevation={10}>
 
                 <Link className={classes.link} to='signup'>
 
                     <Button
-                    
+                        endIcon={<AppRegistrationIcon />}
                         fullWidth                         
                         variant='contained'
                         color='primary'

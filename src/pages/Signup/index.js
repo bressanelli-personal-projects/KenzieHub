@@ -1,11 +1,14 @@
-import { Button, Box, Paper, TextField, Grid } from "@material-ui/core";
-import { Snackbar, Alert } from "@mui/material";
+import { Button, Paper, TextField, Grid, Fade } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup';
 import useStyles from "./styles";
-import axios from "axios";
+import api from '../../services/api'
+import { toast } from "material-react-toastify";
+import { Link, Redirect } from "react-router-dom";
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+
 
 
 const Signup = () => {
@@ -21,17 +24,20 @@ const Signup = () => {
         password: yup.string().min(8, 'Min. 8 caracteres').required('Campo obrigatório').matches(passRegex, 'Senha inválida'),
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'As senhas devem ser iguais'),
         bio: yup.string().required('Campo obrigatório').matches(nameRegex, 'Somente letras'),
-        contact: yup.string().required('Campo obrigatório').matches(nameRegex, 'Somente letras'),
+        contact: yup.string().required('Campo obrigatório'),
         course_module: yup.string().required('Campo obrigatório').matches(nameRegex, 'Somente letras'),
     });
 
     const { register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema)})
+    
 
-    const onSubmitForm = (data) => {
-        if(data) {
-            // setIsAllowed(true);
-            history.push(`/success/${data.name}`);
-        }        
+    const onSubmitForm = ({ email, password, name, bio, contact, course_module }) => {
+        const user = { email, password, name, bio, contact, course_module };
+        
+        api.post('/users', user).then((response) => {
+            toast.success('Sucesso ao criar a conta')
+            return history.push('/login')
+        }).catch((err) => toast.error('Erro ao criar a conta'));
     }
 
     const classes = useStyles();
@@ -40,10 +46,12 @@ const Signup = () => {
 
     return(
 
-        <Grid  container className={classes.container}>
-            <Grid className={classes.grid} xs={12}>
-            
-                <Paper className={classes.paper} elevation={10} >
+        <Grid sx={{ minHeight: '100vh' }}  container className={classes.container}>
+            <Grid className={classes.grid} item xs={12} sm={10} md={8} xl={4} lg={6}>
+
+            <Fade in timeout={1500}>
+
+            <Paper className={classes.paper} elevation={10} >
     
             <form className={classes.form} onSubmit={handleSubmit(onSubmitForm)} >                           
 
@@ -96,11 +104,11 @@ const Signup = () => {
                         helperText={errors.password?.message}                        
                     />
 
-                    <Snackbar
+                    {/* <Snackbar
                         open={!!errors.password}                                                    
                         anchorOrigin={ {vertical: 'top', horizontal: 'center'} }      >              
                         <Alert severity="error">A senha deve conter: letra maiúscula, letra minúscula, número e caracter especial @$!%*?&</Alert>
-                    </Snackbar>
+                    </Snackbar> */}
 
 
                 </div>
@@ -173,6 +181,7 @@ const Signup = () => {
                 <Paper>
 
                     <Button
+                        endIcon={<PersonAddAltIcon className={classes.svg}/>}
                         fullWidth
                         variant='contained'
                         color='primary'
@@ -184,8 +193,16 @@ const Signup = () => {
 
                 </Paper>
 
+                <p>
+                    Já é registrado? Faça seu  
+                        <Link className={classes.link} to='/login'><strong> login</strong></Link>
+                </p>
+
             </form>
             </Paper>
+            </Fade>
+            
+            
         
             </Grid>
         </Grid>

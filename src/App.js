@@ -1,19 +1,19 @@
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'material-react-toastify';
+import 'material-react-toastify/dist/ReactToastify.css';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Routes from './routes';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App">      
 
-      <CssBaseline />
-
+      
       <ToastContainer
-        theme='colored'
+        // theme='colored'
         position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
+        autoClose={3000}
+        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
@@ -21,6 +21,8 @@ function App() {
         draggable
         pauseOnHover
       />
+
+      <CssBaseline />
 
       <Routes />
 

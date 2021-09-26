@@ -23,8 +23,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-around',       
         padding: '30px 0px',   
         background: 'linear-gradient(45deg, #bbdefb 40%, #fff9c4 90%)',  
-        boxSizing: 'border-box', 
-        // opacity: 0.9,                          
+        boxSizing: 'border-box',                         
     },   
     
     

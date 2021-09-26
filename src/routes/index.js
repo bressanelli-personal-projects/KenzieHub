@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Switch, Route } from "react-router";
 import Dashboard from "../pages/Dashboard";
 import Home from "../pages/Home";
@@ -6,24 +7,39 @@ import Signup from "../pages/Signup";
 
 const Routes = () => {
 
+    const [ authorized, setAuthorized ] = useState(false)
+
+    useEffect(() => {
+        const token =JSON.parse(localStorage.getItem('@Kehub:token'))
+
+        if(token) {
+            return setAuthorized(true);
+        }
+    }, [authorized])
 
     return(
+
         <Switch>
+
             <Route exact path='/'>
-                <Home />
+                <Home authorized={authorized}/>
             </Route>
 
             <Route path='/login'>
-                <Login />
+                <Login 
+                    authorized={authorized}
+                    setAuthorized={setAuthorized}    
+                />
             </Route>
 
             <Route path='/signup'>
-                <Signup />
+                <Signup authorized={authorized}/>
             </Route>
 
             <Route path='/dashboard'>
-                <Dashboard />
+                <Dashboard authorized={authorized}/>
             </Route>
+            
         </Switch>
     )
 }

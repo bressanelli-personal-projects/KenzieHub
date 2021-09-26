@@ -10,12 +10,10 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#007aff',
         backgroundImage: `url(${background})`,
         backgroundSize: '100%',
-        backgroundAttachment: 'fixed',
-        // alignItems:'center',
+        backgroundAttachment: 'fixed',        
         justifyContent: 'center',
         alignContent: 'center',
-        alignSelf: 'center',
-        // height: '100%',  
+        alignSelf: 'center',        
         padding: '10px',
     },
 
@@ -26,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'space-around',       
         padding: '20px 0px',   
         background: 'linear-gradient(45deg, #bbdefb 40%, #fff9c4 90%)',  
-        boxSizing: 'border-box', 
-        // opacity: 0.2,                         
+        boxSizing: 'border-box',        
     },
 
     form: {

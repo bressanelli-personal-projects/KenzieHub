@@ -4,20 +4,15 @@ import useStyles from "./styles";
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
-
-const Home = () => {
+const Home = ({ authorized }) => {
 
     const classes = useStyles();
 
     return(
 
         <Box className={classes.container}>
-
         
-            <h1 className={classes.title}>KENZIE HUB</h1>
-        
-
-        
+            <h1 className={classes.title}>KENZIE HUB</h1>   
 
             <Paper className={classes.paper} elevation={10}>
 
@@ -31,9 +26,11 @@ const Home = () => {
                         size='large'
                         type='submit'
                     >
-                    LOGIN
-                    </Button>           
+                        LOGIN
+                    </Button>  
+
                 </Link>
+
             </Paper>
 
             <Paper className={classes.paper} elevation={10}>
@@ -48,12 +45,12 @@ const Home = () => {
                         size='large'
                         type='submit'
                     >
-                    SIGNUP
+                        SIGNUP
                     </Button> 
 
                 </Link>
-            </Paper>
 
+            </Paper>
             
         </Box>
 

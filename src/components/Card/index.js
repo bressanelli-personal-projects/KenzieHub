@@ -5,9 +5,9 @@ import { useState } from "react";
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+import Help from "../Help";
 
-
-const Card = ({ title, status, delClick, techId, editFunction }) => {
+const Card = ({ title, status, delClick, techId, editFunction, local }) => {
 
     const [ isShow, setIsShow ] = useState(false);
     const [ value, setValue ] = useState(''); 
@@ -33,63 +33,65 @@ const Card = ({ title, status, delClick, techId, editFunction }) => {
                         <p>Status: <strong>{status}</strong></p>
 
                     </div>
+
+                    <div>
+                        <Button
+                            sx={{margin: '20px 0px'}}
+                            variant='contained'
+                            color="error"
+                            onClick={delClick}
+                        >
+                            <DeleteOutlinedIcon />
+                        </Button>
+
+                        <Help local={local}/>
+
+                    </div>
                     
-                    <Button
-                        sx={{margin: '20px 0px'}}
-                        variant='contained'
-                        color="error"
-                        onClick={delClick}
-                    ><DeleteOutlinedIcon />
-                    </Button>
-
-                </div>
-
-                 
+                    
+                </div>                 
 
                 <div className={classes.editControl}>                   
 
-                <form  onSubmit={editFunction}>                
+                    <form  onSubmit={(e) => {
+                        handleEditForm(e)
+                        editFunction()
+                    }}>                
 
-                    {isShow && <Button
-                        variant='contained'
-                        onClick={(e) => {
-                            handleEditForm(e)
-                            editFunction(value, techId)}}
-                    >
-                        <SendOutlinedIcon />
-                    </Button>}
+                        {isShow && <Button
+                            variant='contained'
+                            onClick={(e) => {
+                                handleEditForm(e)
+                                editFunction(value, techId, status)}}
+                        >
+                            <SendOutlinedIcon />
+                        </Button>}
 
-                    {!isShow && <Button
-                        variant='contained'
-                        color="primary"
-                        onClick={handleEditForm}                    
-                    ><ModeEditOutlineOutlinedIcon />
-                    </Button>}
+                        {!isShow && <Button
+                            variant='contained'
+                            color="primary"
+                            onClick={handleEditForm}                    
+                        >
+                            <ModeEditOutlineOutlinedIcon />
+                        </Button>}
 
-                    {isShow && <TextField
-                        required
-                        label="Novo status"
-                        size='small'  
-                        onChange={ (event) => setValue(event.target.value)}              
-                    >   
-                    </TextField>}                  
-                      
-                    
-                </form>
+                        {isShow && <TextField
+                            required
+                            label="Novo status"
+                            size='small'  
+                            onChange={ (event) => setValue(event.target.value)}              
+                        >   
+                        </TextField>}                  
+                        
+                        
+                    </form>                   
 
-                    
-
-                </div>               
-
-                
-
-                
+                </div>  
 
             </Paper>         
             
         </div>
     )
 }
-
 
 export default Card;

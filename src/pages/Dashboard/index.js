@@ -50,7 +50,7 @@ const Dashboard = ({ authorized }) => {
             reset();
             toast.success('Tecnologia adicionada com sucesso!');
         })
-        .catch(err => toast.error('Tecnologia não adicionada'));
+        .catch(err => toast.error('Tecnologia não adicionada'));    
     };    
 
     const showUser = () => {
@@ -79,8 +79,9 @@ const Dashboard = ({ authorized }) => {
     };
 
     const editFunction = (data, techId, status) => {
-        
-        if(data=== 'Intermediário' || data==='Avançado') {
+
+        if(data.toLowerCase() === 'intermediário' || data.toLowerCase() ==='avançado') {
+
             api.put(`/users/techs/${techId}`, 
         {
             "status": `${data}`

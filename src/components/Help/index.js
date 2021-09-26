@@ -117,7 +117,7 @@ const Help = ({ local }) => {
 
                             <ul>
                                 <li>
-                                Mudar para um valor superior ao atual
+                                Mudar Status para um valor superior ao atual
                                 </li>
                                 <li>
                                     Como Iniciante é o menor valor, somente mudar o status para um dos seguintes valores:

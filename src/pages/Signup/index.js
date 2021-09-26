@@ -40,9 +40,7 @@ const Signup = () => {
         }).catch((err) => toast.error('Erro ao criar a conta'));
     }
 
-    const classes = useStyles();
-
-    
+    const classes = useStyles();    
 
     return(
 
@@ -58,6 +56,7 @@ const Signup = () => {
                 <div>
 
                     <TextField 
+                        required
                         fullWidth                                                                  
                         label='Nome'
                         margin='normal'
@@ -74,7 +73,8 @@ const Signup = () => {
 
                 <div>
 
-                    <TextField   
+                    <TextField
+                        required   
                         fullWidth                
                         label='Email'
                         margin='normal'
@@ -91,7 +91,8 @@ const Signup = () => {
 
                 <div>
 
-                    <TextField   
+                    <TextField
+                        required   
                         fullWidth                
                         label='Senha'
                         margin='normal'
@@ -103,19 +104,13 @@ const Signup = () => {
                         error={!!errors.password}
                         helperText={errors.password?.message}                        
                     />
-
-                    {/* <Snackbar
-                        open={!!errors.password}                                                    
-                        anchorOrigin={ {vertical: 'top', horizontal: 'center'} }      >              
-                        <Alert severity="error">A senha deve conter: letra maiúscula, letra minúscula, número e caracter especial @$!%*?&</Alert>
-                    </Snackbar> */}
-
-
+                    
                 </div>
 
                 <div>
 
                     <TextField 
+                        required
                         fullWidth                   
                         label='Confirmar senha'
                         margin='normal'
@@ -133,6 +128,7 @@ const Signup = () => {
                 <div>
 
                     <TextField 
+                        required
                         fullWidth                                                   
                         label='Bio'
                         margin='normal'
@@ -148,7 +144,8 @@ const Signup = () => {
 
                 <div>
 
-                    <TextField 
+                    <TextField
+                        required 
                         fullWidth                                                   
                         label='Contato'
                         margin='normal'
@@ -165,6 +162,7 @@ const Signup = () => {
                 <div>
 
                     <TextField 
+                        required
                         fullWidth                                                   
                         label='Módulo do curso'
                         margin='normal'

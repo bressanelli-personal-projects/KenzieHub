@@ -53,7 +53,8 @@ const Login = () => {
 
                             <div>
 
-                                <TextField                       
+                                <TextField 
+                                    required                      
                                     fullWidth                   
                                     label='Email'
                                     margin='normal'
@@ -71,6 +72,7 @@ const Login = () => {
                             <div>
 
                                 <TextField 
+                                    required
                                     fullWidth                  
                                     label='Senha'
                                     margin='normal'
@@ -88,6 +90,7 @@ const Login = () => {
                             <div>
 
                                 <TextField 
+                                    required
                                     fullWidth                   
                                     label='Confirmar senha'
                                     margin='normal'

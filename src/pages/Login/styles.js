@@ -7,11 +7,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     container: {        
-        // backgroundColor: '#007aff',
-        // backgroundColor: '#007aff',
         backgroundImage: `url(${background_signup})`,
-        backgroundSize: '100%',
-        // alignItems:'center',
+        backgroundSize: '100%',        
         justifyContent: 'center',
         alignContent: 'center',
         alignSelf: 'center',

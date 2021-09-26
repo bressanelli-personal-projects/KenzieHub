@@ -1,4 +1,4 @@
-import { Paper } from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import useStyles from "../Dashboard/styles";
 import { Button, TextField, Fade } from "@material-ui/core";
 import { useHistory } from "react-router";
@@ -12,6 +12,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useEffect, useState } from "react";
 import Card from '../../components/Card/index';
 import { ResetTv } from "@mui/icons-material";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 
 const Dashboard = () => {
 
@@ -20,6 +21,7 @@ const Dashboard = () => {
 
     const [ tech, setTech ] = useState([])    
     const [ isShow, setIsShow ] = useState(false);
+    const [ logedUser, setLogedUser ] = useState('')
     
     const history = useHistory();
 
@@ -42,7 +44,8 @@ const Dashboard = () => {
             },
         })
         .then(response => {               
-            showUser() 
+            showUser()
+            setIsShow(true) 
             reset()
             toast.success('Tecnologia adicionada com sucesso!')
         })
@@ -52,9 +55,8 @@ const Dashboard = () => {
     const showUser = () => {
         api.get(`/users/${user.id}`)
         .then((response) => {
-            console.log(response.data.name)
-            setTech(response.data.techs)
-            console.log(tech)
+            setLogedUser(response.data.name)
+            setTech(response.data.techs)            
         })        
     }    
 
@@ -70,12 +72,14 @@ const Dashboard = () => {
             }
         }).then((response) => {
             showUser()
+            setIsShow(true)
             toast.success('Deletado com sucesso')
         }).catch((err) => console.log(err))
     }
 
     const editFunction = (data, techId) => {
-        api.put(`/users/techs/${techId}`, 
+        if(data==='Intermediário' || data==='Avançado') {
+            api.put(`/users/techs/${techId}`, 
         {
             "status": `${data}`
         },
@@ -85,8 +89,15 @@ const Dashboard = () => {
             }
         }).then((response) => {
             showUser()
+            setIsShow(true)
             toast.success('Modificado com sucesso')
         }).catch((err) => toast.error('Modificação não concluida'))
+        } else {
+            toast.error('Entrada inválida')
+        } 
+         
+
+        
     }
 
     useEffect(() => {
@@ -100,9 +111,29 @@ const Dashboard = () => {
         <div className={classes.container} >        
            
             {/* <Container> */}
-                <Fade in timeout={1500}>                   
+
+            <Grid 
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justifyContent="flex-start"
+                style={{ minHeight: '100vh', marginTop: '20px' }}
+            >
+                <Grid item xs={3} sm={3} md={3} xl={3} lg={3} >
+
+                    <Fade in timeout={1500}>                   
 
                     <Paper className={classes.paper} elevation={10} >
+
+                        <h1 className={classes.greeting}>Bem vindo {logedUser}
+                        
+                            <Button
+                                variant='contained'
+                                sx={{marginLeft: '10px'}}
+                                onClick={() => history.push('/')}
+                            ><HomeOutlinedIcon /></Button>
+                        </h1>
 
                         <form className={classes.form} onSubmit={handleSubmit(onSubmitForm)} >                           
 
@@ -133,9 +164,9 @@ const Dashboard = () => {
 
                             </div>                    
 
-                            <Paper elevation={10}>
+                            <Paper elevation={10} >
 
-                                <Button
+                                <Button                                 
                                     endIcon={<AppRegistrationIcon className={classes.svg}/>}
                                     fullWidth
                                     variant='contained'
@@ -146,10 +177,10 @@ const Dashboard = () => {
                                     Cadastrar
                                 </Button>
 
-                                <Button 
+                                <Button                                 
                                     onClick={handleTechs}
                                     fullWidth
-                                >SHOW/HIDE TECHS                                
+                                >{isShow ? 'OCULTAR' : 'MOSTRAR'} TECHS                                
                                 </Button>
 
                             </Paper>
@@ -169,6 +200,9 @@ const Dashboard = () => {
                     </Paper>
 
                 </Fade>
+                </Grid>
+            </Grid>
+                
             {/* </Container> */}
             
             

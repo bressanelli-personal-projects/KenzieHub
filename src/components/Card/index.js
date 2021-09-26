@@ -2,6 +2,10 @@ import { Button, Paper } from "@material-ui/core";
 import useStyles from "./styles";
 import { TextField } from "@material-ui/core";
 import { useState } from "react";
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
+
 
 const Card = ({ title, status, delClick, techId, editFunction }) => {
 
@@ -21,16 +25,28 @@ const Card = ({ title, status, delClick, techId, editFunction }) => {
 
             <Paper className={classes.paper} elevation={10}>
 
-                <div>Tecnologia: {title}</div>
-            
-                <div>Status: {status}</div>                
+                <div className={classes.techs}>
 
-                <Button
-                    variant='contained'
-                    color="error"
-                    onClick={delClick}
-                >DEL
-                </Button>
+                    <div>
+                        <p>Tecnologia: <strong>{title}</strong></p>
+            
+                        <p>Status: <strong>{status}</strong></p>
+
+                    </div>
+                    
+                    <Button
+                        sx={{margin: '20px 0px'}}
+                        variant='contained'
+                        color="error"
+                        onClick={delClick}
+                    ><DeleteOutlinedIcon />
+                    </Button>
+
+                </div>
+
+                 
+
+                <div className={classes.editControl}>                   
 
                 <form  onSubmit={editFunction}>                
 
@@ -40,24 +56,32 @@ const Card = ({ title, status, delClick, techId, editFunction }) => {
                             handleEditForm(e)
                             editFunction(value, techId)}}
                     >
-                        SEND
+                        <SendOutlinedIcon />
                     </Button>}
 
                     {!isShow && <Button
                         variant='contained'
                         color="primary"
                         onClick={handleEditForm}                    
-                    >EDIT
+                    ><ModeEditOutlineOutlinedIcon />
                     </Button>}
 
-                    {isShow && <TextField                                
-                        label="Status"
+                    {isShow && <TextField
+                        required
+                        label="Novo status"
                         size='small'  
                         onChange={ (event) => setValue(event.target.value)}              
                     >   
-                    </TextField>}   
-
+                    </TextField>}                  
+                      
+                    
                 </form>
+
+                    
+
+                </div>               
+
+                
 
                 
 

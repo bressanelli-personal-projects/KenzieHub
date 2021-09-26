@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
+import background_signup from '../../assets/background_signup.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -7,10 +8,13 @@ const useStyles = makeStyles((theme) => ({
 
     container: {
         width: '100vw',
-        height: '100vh',
+        // height: '100vh',
         display: 'flex',
         justifyContent: 'center',
-        // alignItems: '',
+        // backgroundColor: '#007aff',
+        backgroundImage: `url(${background_signup})`,
+        backgroundSize: '100%',
+        padding: '20px',
     },
 
     form: {
@@ -19,13 +23,17 @@ const useStyles = makeStyles((theme) => ({
 
     div: {
         display: 'flex',
-        alignItems: 'center',    
+        alignItems: 'center',
+        margin: '10px 0',
     },
 
     paper: {
         padding: '30px',
-    }
+    },
 
+    greeting: {
+        textAlign: 'center',
+    },
 }))
 
 export default useStyles;

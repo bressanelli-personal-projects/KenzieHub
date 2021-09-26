@@ -1,10 +1,10 @@
 import { Button, Paper, TextField, Grid, Fade } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useStyles from "./styles";
-import api from '../../services/api'
+import api from '../../services/api';
 import { toast } from "material-react-toastify";
 import { Link } from "react-router-dom";
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
@@ -13,7 +13,7 @@ import Help from "../../components/Help";
 const Signup = ({ authorized }) => {
 
     const history = useHistory();
-    const location = useLocation()
+    const location = useLocation();
 
     const passRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;   
 
@@ -27,9 +27,11 @@ const Signup = ({ authorized }) => {
         course_module: yup.string().required('Campo obrigatório'),
     });
 
-    const { register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema)})    
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)});    
 
     const onSubmitForm = ({ email, password, name, bio, contact, course_module }) => {
+
         const user = { email, password, name, bio, contact, course_module };
         
         api.post('/users', user).then((response) => {
@@ -40,28 +42,26 @@ const Signup = ({ authorized }) => {
                 "password": `${password}`
             }).then(response => {
                 const { token, user } = response.data;
-                toast.success('Login efetuado com sucesso!')
+                toast.success('Login efetuado com sucesso!');
 
-                localStorage.setItem('@Kehub:token', JSON.stringify(token))
-                localStorage.setItem('@Kehub:user', JSON.stringify(user))            
+                localStorage.setItem('@Kehub:token', JSON.stringify(token));
+                localStorage.setItem('@Kehub:user', JSON.stringify(user));            
                 
-                return history.push('/dashboard')
+                return authorized && history.push('/dashboard');
             })
 
-        }).catch((err) => toast.error('Erro ao criar a conta'));
-
-        
-    }
-    console.log(location.pathname)
+        }).catch((err) => toast.error('Erro ao criar a conta'));        
+    };
+    
     const classes = useStyles();    
 
     return(
 
-        <Grid sx={{ minHeight: '100vh' }}  container className={classes.container}>
+        <Grid sx={{ minHeight: '100vh' }}  container className={classes.container} >
 
-            <Grid className={classes.grid} item xs={12} sm={9} md={7} lg={5} xl={4}>
+            <Grid className={classes.grid} item xs={12} sm={9} md={7} lg={5} xl={4} >
 
-                <Fade in timeout={1500}>
+                <Fade in timeout={1500} >
 
                     <Paper className={classes.paper} elevation={10} >
             
@@ -217,7 +217,7 @@ const Signup = ({ authorized }) => {
             
         </Grid>
   
-    )
+    );
 }
 
 export default Signup;

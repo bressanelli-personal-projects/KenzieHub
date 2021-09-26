@@ -1,7 +1,7 @@
 import { Button, Paper, TextField, Grid, Fade } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import useStyles from "./styles";
 import api from '../../services/api';
@@ -19,27 +19,28 @@ const Login = ({ authorized, setAuthorized }) => {
         confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'As senhas devem ser iguais'),
     });
   
-    const { register, handleSubmit, formState: { errors } } = useForm({resolver: yupResolver(schema)})
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)});
 
     const onSubmitForm = (data) => {        
         api.post('/sessions', data).then(response => {
             const { token, user } = response.data;
-            toast.success('Login efetuado com sucesso!')
+            toast.success('Login efetuado com sucesso!');
 
-            localStorage.setItem('@Kehub:token', JSON.stringify(token))
-            localStorage.setItem('@Kehub:user', JSON.stringify(user))
+            localStorage.setItem('@Kehub:token', JSON.stringify(token));
+            localStorage.setItem('@Kehub:user', JSON.stringify(user));
 
-            setAuthorized(true)
+            setAuthorized(true);
             
-            return history.push('/dashboard')
-        }).catch(err => toast.error('Email ou senha inválidos'))
-    }
+            return history.push('/dashboard');
+        }).catch(err => toast.error('Email ou senha inválidos'));
+    };
 
     const classes = useStyles(); 
     
     if(authorized) {
         return <Redirect to='/dashboard' />
-    }
+    };
 
     return(
 
@@ -55,8 +56,7 @@ const Login = ({ authorized, setAuthorized }) => {
 
                             <div>
 
-                                <TextField 
-                                    required                      
+                                <TextField                                                         
                                     fullWidth                   
                                     label='Email'
                                     margin='normal'
@@ -72,8 +72,7 @@ const Login = ({ authorized, setAuthorized }) => {
 
                             <div>
 
-                                <TextField 
-                                    required
+                                <TextField                                    
                                     fullWidth                  
                                     label='Senha'
                                     margin='normal'
@@ -90,8 +89,7 @@ const Login = ({ authorized, setAuthorized }) => {
 
                             <div>
 
-                                <TextField 
-                                    required
+                                <TextField                                     
                                     fullWidth                   
                                     label='Confirmar senha'
                                     margin='normal'
@@ -137,7 +135,7 @@ const Login = ({ authorized, setAuthorized }) => {
             
         </Grid>
     
-    )
+    );
 }
 
 export default Login;

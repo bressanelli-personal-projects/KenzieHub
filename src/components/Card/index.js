@@ -15,9 +15,9 @@ const Card = ({ title, status, delClick, techId, editFunction, local }) => {
     const classes = useStyles();
 
     const handleEditForm = (e) => {
-        e.preventDefault()
-        setIsShow(!isShow)
-    }
+        e.preventDefault();
+        setIsShow(!isShow);
+    };
 
     return(
 
@@ -91,7 +91,7 @@ const Card = ({ title, status, delClick, techId, editFunction, local }) => {
             </Paper>         
             
         </div>
-    )
+    );
 }
 
 export default Card;

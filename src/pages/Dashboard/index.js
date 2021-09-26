@@ -3,7 +3,7 @@ import useStyles from "../Dashboard/styles";
 import { Button, TextField, Fade } from "@material-ui/core";
 import { useHistory, useLocation } from "react-router";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup'
+import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import api from '../../services/api';
 import { toast } from "material-react-toastify";
@@ -18,9 +18,9 @@ const Dashboard = ({ authorized }) => {
     const [ token ] = useState(JSON.parse(localStorage.getItem('@Kehub:token')) || '');
     const [ user ] = useState(JSON.parse(localStorage.getItem('@Kehub:user')) || '');
 
-    const [ tech, setTech ] = useState([])    
+    const [ tech, setTech ] = useState([]);    
     const [ isShow, setIsShow ] = useState(false);
-    const [ logedUser, setLogedUser ] = useState('')
+    const [ logedUser, setLogedUser ] = useState('');
     
     const history = useHistory();
     const location = useLocation();
@@ -30,7 +30,8 @@ const Dashboard = ({ authorized }) => {
         status: yup.string().required('Campo obrigatório')
     });
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({resolver: yupResolver(schema)})
+    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+        resolver: yupResolver(schema)});
 
     const onSubmitForm = ({ title, status }) => {
 
@@ -44,26 +45,26 @@ const Dashboard = ({ authorized }) => {
             },
         })
         .then(response => {               
-            showUser()
-            setIsShow(true) 
-            reset()
-            toast.success('Tecnologia adicionada com sucesso!')
+            showUser();
+            setIsShow(true); 
+            reset();
+            toast.success('Tecnologia adicionada com sucesso!');
         })
-        .catch(err => toast.error('Tecnologia não adicionada'))
-    }    
+        .catch(err => toast.error('Tecnologia não adicionada'));
+    };    
 
     const showUser = () => {
         api.get(`/users/${user.id}`)
         .then((response) => {
-            setLogedUser(response.data.name)
-            setTech(response.data.techs)            
+            setLogedUser(response.data.name);
+            setTech(response.data.techs);            
         })        
-    }    
+    };    
 
     const handleTechs = () => {
-        showUser()
-        setIsShow(!isShow)
-    }
+        showUser();
+        setIsShow(!isShow);
+    };
 
     const deleteTech = ( tech_id ) => {        
         api.delete(`/users/techs/${tech_id}`, {
@@ -71,11 +72,11 @@ const Dashboard = ({ authorized }) => {
                 Authorization: `Bearer ${token}`,
             }
         }).then((response) => {
-            showUser()
-            setIsShow(true)
-            toast.success('Deletado com sucesso')
-        }).catch((err) => console.log(err))
-    }
+            showUser();
+            setIsShow(true);
+            toast.success('Deletado com sucesso');
+        }).catch((err) => console.log(err));
+    };
 
     const editFunction = (data, techId, status) => {
         
@@ -89,24 +90,24 @@ const Dashboard = ({ authorized }) => {
                 Authorization: `Bearer ${token}`,
             }
         }).then((response) => {
-            showUser()
-            setIsShow(true)
-            toast.success('Modificado com sucesso')
-        }).catch((err) => toast.error('Modificação não concluida'))
+            showUser();
+            setIsShow(true);
+            toast.success('Modificado com sucesso');
+        }).catch((err) => toast.error('Modificação não concluida'));
         } else {
-            toast.error('Entrada inválida')
+            toast.error('Entrada inválida');
         }        
-    }
+    };
 
     useEffect(() => {
-        showUser() // eslint-disable-next-line
-    }, []) 
+        showUser(); // eslint-disable-next-line
+    }, []);
 
     const classes = useStyles();
 
     if(!authorized) {
         return <Redirect to='/login' />
-    }
+    };
     
     return(
 
@@ -126,7 +127,7 @@ const Dashboard = ({ authorized }) => {
 
                         <Paper className={classes.paper} elevation={10} >
 
-                            <h1 className={classes.greeting}>Bem vindo {logedUser.split(' ')[0]}
+                            <h1 className={classes.greeting}>Bem vindo(a) {logedUser.split(' ')[0]}
                             
                                 <Button
                                     variant='contained'
@@ -147,16 +148,21 @@ const Dashboard = ({ authorized }) => {
                                         color='primary'
                                         {...register('title')}
                                         error={!!errors.title}
-                                        helperText={errors.title?.message}
+                                        helperText={errors.title?.message ? 
+                                            errors.title?.message :
+                                                'Ex.: Python, C++, Java, etc.'}
                                     >
                                     </TextField>
                                 
 
                                     <TextField                               
-                                        label="Status"                                        
+                                        label="Status" 
+                                                                               
                                         {...register('status')}
                                         error={!!errors.status}
-                                        helperText={errors.status?.message}            
+                                        helperText={errors.status?.message ? 
+                                            errors.status?.message : 
+                                                'Iniciante / Intermediário / Avançado'}            
                                     >   
                                     </TextField>
 
@@ -196,7 +202,7 @@ const Dashboard = ({ authorized }) => {
                                         delClick={() => deleteTech(value.id)}
                                         techId={value.id} 
                                         editFunction={editFunction} 
-                                        local={location.pathname}  
+                                        local={location.pathname}                   
                                     />                                    
                                     
                                 )}
@@ -211,7 +217,7 @@ const Dashboard = ({ authorized }) => {
 
         </div>
         
-    )
+    );
 }
 
 export default Dashboard;

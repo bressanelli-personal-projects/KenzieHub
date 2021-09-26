@@ -5,12 +5,12 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Routes from './routes';
 
 function App() {
-  return (
-    <div className="App">      
 
-      
-      <ToastContainer
-        // theme='colored'
+  return (
+
+    <div className="App">
+
+      <ToastContainer        
         position="top-right"
         autoClose={3000}
         hideProgressBar
@@ -24,13 +24,10 @@ function App() {
 
       <CssBaseline />
 
-      <Routes />
-
-      
-
-      
+      <Routes />      
      
     </div>
+
   );
 }
 

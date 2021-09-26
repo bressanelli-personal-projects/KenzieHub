@@ -4,7 +4,7 @@ import useStyles from "./styles";
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 
-const Home = ({ authorized }) => {
+const Home = () => {
 
     const classes = useStyles();
 
@@ -54,7 +54,7 @@ const Home = ({ authorized }) => {
             
         </Box>
 
-    )
+    );
 }
 
 export default Home;

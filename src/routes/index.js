@@ -7,15 +7,15 @@ import Signup from "../pages/Signup";
 
 const Routes = () => {
 
-    const [ authorized, setAuthorized ] = useState(false)
+    const [ authorized, setAuthorized ] = useState(false);
 
     useEffect(() => {
-        const token =JSON.parse(localStorage.getItem('@Kehub:token'))
+        const token =JSON.parse(localStorage.getItem('@Kehub:token'));
 
         if(token) {
             return setAuthorized(true);
         }
-    }, [authorized])
+    }, [authorized]);
 
     return(
 
@@ -41,7 +41,8 @@ const Routes = () => {
             </Route>
             
         </Switch>
-    )
+        
+    );
 }
 
 export default Routes;

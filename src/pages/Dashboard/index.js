@@ -12,7 +12,6 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useEffect, useState } from "react";
 import Card from '../../components/Card/index';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import Help from "../../components/Help";
 
 const Dashboard = ({ authorized }) => {
 
@@ -198,8 +197,7 @@ const Dashboard = ({ authorized }) => {
                                         techId={value.id} 
                                         editFunction={editFunction} 
                                         local={location.pathname}  
-                                    />
-                                    
+                                    />                                    
                                     
                                 )}
                                 

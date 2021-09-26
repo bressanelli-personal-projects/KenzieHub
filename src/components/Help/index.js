@@ -30,7 +30,7 @@ const Help = ({ local }) => {
     return(
 
         <>
-            {local==='/signup' && <>
+            {local==='/signup' ? <>
             
             <Button onClick={handleOpen}>
                 <HelpOutlineOutlinedIcon 
@@ -87,9 +87,9 @@ const Help = ({ local }) => {
                 </Box>
                 
             </Modal>
-            </>}
+            </> :
 
-            {<>
+            <>
                 <Button onClick={handleOpen}>
                 <HelpOutlineOutlinedIcon 
                     sx={{ color: '#0b3',}}

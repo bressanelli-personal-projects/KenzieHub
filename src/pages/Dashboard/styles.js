@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/styles";
-import background_signup from '../../assets/background_signup.png'
+import background from '../../assets/background.png'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -7,12 +7,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
     container: {
-        width: '100vw',
-        // height: '100vh',
+        width: '100vw',        
         display: 'flex',
-        justifyContent: 'center',
-        // backgroundColor: '#007aff',
-        backgroundImage: `url(${background_signup})`,
+        justifyContent: 'center',        
+        backgroundImage: `url(${background})`,
         backgroundSize: '100%',
         padding: '20px',
     },

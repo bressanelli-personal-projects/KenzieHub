@@ -15,8 +15,7 @@ const Login = ({ authorized, setAuthorized }) => {
 
     const schema = yup.object().shape({       
         email: yup.string().required('Campo obrigatório').email('Email inválido'),
-        password: yup.string().min(6, 'Min. 6 caracteres').required('Campo obrigatório'),
-        confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'As senhas devem ser iguais'),
+        password: yup.string().min(6, 'Min. 6 caracteres').required('Campo obrigatório'),        
     });
   
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -51,6 +50,8 @@ const Login = ({ authorized, setAuthorized }) => {
                 <Fade in timeout={1500}>
 
                     <Paper className={classes.paper} elevation={10} >
+
+                        <h1>Faça seu login</h1>
         
                         <form className={classes.form} onSubmit={handleSubmit(onSubmitForm)} >                           
 
@@ -85,24 +86,7 @@ const Login = ({ authorized, setAuthorized }) => {
                                     helperText={errors.password?.message}                        
                                 />
 
-                            </div>
-
-                            <div>
-
-                                <TextField                                     
-                                    fullWidth                   
-                                    label='Confirmar senha'
-                                    margin='normal'
-                                    variant='filled'
-                                    size='medium'
-                                    color='primary'
-                                    type='password'
-                                    {...register('confirmPassword')}
-                                    error={!!errors.confirmPassword}
-                                    helperText={errors.confirmPassword?.message}
-                                />                        
-
-                            </div>
+                            </div>                           
 
                             <Paper elevation={10}>
 

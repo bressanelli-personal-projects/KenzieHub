@@ -50,7 +50,12 @@ const Dashboard = ({ authorized }) => {
             reset();
             toast.success('Tecnologia adicionada com sucesso!');
         })
-        .catch(err => toast.error('Tecnologia não adicionada'));    
+        .catch(err => { toast.error(
+            err.response.data.message === 
+                'User Already have this technology created you can only update it' ? 
+                'Usuário já possui esta tecnologia. Somente update permitido.' : 
+            null
+        )});    
     };    
 
     const showUser = () => {
@@ -94,8 +99,9 @@ const Dashboard = ({ authorized }) => {
             showUser();
             setIsShow(true);
             toast.success('Modificado com sucesso');
-        }).catch((err) => toast.error('Modificação não concluida'));
-        } else {
+        }).catch((err) => {
+            toast.error('Modificação não concluida');         
+        })} else {           
             toast.error('Entrada inválida');
         }        
     };

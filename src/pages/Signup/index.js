@@ -41,16 +41,19 @@ const Signup = ({ authorized }) => {
                 "email": `${email}`,
                 "password": `${password}`
             }).then(response => {
-                const { token, user } = response.data;
-                toast.success('Login efetuado com sucesso!');
+                const { token, user } = response.data;               
 
                 localStorage.setItem('@Kehub:token', JSON.stringify(token));
-                localStorage.setItem('@Kehub:user', JSON.stringify(user));            
+                localStorage.setItem('@Kehub:user', JSON.stringify(user));
                 
-                return authorized && history.push('/dashboard');
             })
-
-        }).catch((err) => toast.error('Erro ao criar a conta'));        
+                
+        }).catch((err) => {
+            if(err.response.data.message === 'Email already exists') {
+                toast.error('E-mail já cadastrado. Favor tentar outro!')
+            }});             
+            
+            return authorized && history.push('/dashboard');            
     };
     
     const classes = useStyles();    

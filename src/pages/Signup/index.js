@@ -192,10 +192,10 @@ const Signup = ({ authorized }) => {
                             <div>
                                 <FormControl
                                     variant="filled"
+                                    size='small'
                                     sx={{ mb: 3, mt: 2 }}
                                     required
-                                    fullWidth
-                                    size='small'
+                                    fullWidth                                    
                                 >
                                     <InputLabel>Módulo do Curso</InputLabel>
                                     <Select
@@ -216,7 +216,6 @@ const Signup = ({ authorized }) => {
                                         </MenuItem>
                                     </Select>
                                 </FormControl>
-
                                 
                             </div>
 

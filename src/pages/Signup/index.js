@@ -18,8 +18,7 @@ import { useState } from "react";
 const Signup = ({ authorized }) => {
     const history = useHistory();
     const location = useLocation();
-
-    // status ===================
+ 
 
     const [module, setModule] = useState("Primeiro módulo (Introdução ao Frontend)");
 
@@ -27,8 +26,6 @@ const Signup = ({ authorized }) => {
         setModule(event.target.value);
         console.log(module)
     };
-
-    // status ===================
 
     const passRegex =
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
@@ -48,8 +45,7 @@ const Signup = ({ authorized }) => {
             .string()
             .oneOf([yup.ref("password"), null], "As senhas devem ser iguais"),
         bio: yup.string().required("Campo obrigatório"),
-        contact: yup.string().required("Campo obrigatório"),
-        // course_module: yup.string().required("Campo obrigatório"),
+        contact: yup.string().required("Campo obrigatório"),        
     });
 
     const {
@@ -69,26 +65,17 @@ const Signup = ({ authorized }) => {
         course_module=module,
     }) => {
         const user = { email, password, name, bio, contact, course_module };
-
+        
         api.post("/users", user)
             .then((response) => {
                 toast.success("Sucesso ao criar a conta");
+                                
+                return history.push("/login");
 
-                api.post("/sessions", {
-                    email: `${email}`,
-                    password: `${password}`,
-                }).then((response) => {
-                    const { token, user } = response.data;
-
-                    localStorage.setItem("@Kehub:token", JSON.stringify(token));
-                    localStorage.setItem("@Kehub:user", JSON.stringify(user));
-
-                    return authorized && history.push("/dashboard");
-                });
             })
             .catch((err) => {
                 if (err.response.data.message === "Email already exists") {
-                    toast.error("E-mail já cadastrado. Favor usar outro!");
+                    toast.error("E-mail já cadastrado. Favor informar outro!");
                 }
             });
     };
@@ -210,10 +197,10 @@ const Signup = ({ authorized }) => {
                                     fullWidth
                                     size='small'
                                 >
-                                    <InputLabel>Status</InputLabel>
+                                    <InputLabel>Módulo do Curso</InputLabel>
                                     <Select
                                         value={module}
-                                        onChange={handleModule}
+                                        onChange={handleModule}                                
                                     >
                                         <MenuItem value={"Primeiro módulo (Introdução ao Frontend)"}>
                                         Primeiro módulo (Introdução ao Frontend)

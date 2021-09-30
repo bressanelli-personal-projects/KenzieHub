@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
     greeting: {
         textAlign: 'center',
+        fontSize: '26px',
     },
 }))
 

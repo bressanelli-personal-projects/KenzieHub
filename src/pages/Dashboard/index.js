@@ -16,9 +16,10 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
-const Dashboard = ({ authorized }) => {
+const Dashboard = ({ authorized, setAuthorized }) => {
 
     const style = {
         mt: {
@@ -52,8 +53,7 @@ const Dashboard = ({ authorized }) => {
     // status ===================
 
     const schema = yup.object().shape({       
-        title: yup.string().required('Campo obrigatório'),
-        // status: yup.string().required('Campo obrigatório')
+        title: yup.string().required('Campo obrigatório'),        
     });
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
@@ -173,8 +173,27 @@ const Dashboard = ({ authorized }) => {
                                 <Button
                                     variant='contained'
                                     sx={{marginLeft: '10px'}}
-                                    onClick={() => history.push('/')}
+                                    onClick={() => history.push('/') }
                                 ><HomeOutlinedIcon /></Button>
+
+                                <Button
+                                    variant='contained'
+                                    sx={{marginLeft: '10px'}}
+                                    color='warning'
+                                    onClick={() => {
+                                        localStorage.removeItem("@Kehub:token");
+                                        localStorage.removeItem("@Kehub:user");
+                                        setAuthorized(false);
+                                        history.push('/');
+                                    }
+                                    
+                                    
+                                     
+                                    
+                                    
+                                    
+                                    }
+                                ><LogoutIcon /></Button>
                             </h1>
 
                             <form className={classes.form} onSubmit={handleSubmit(onSubmitForm)} >                           
@@ -182,7 +201,7 @@ const Dashboard = ({ authorized }) => {
                                 <div className={classes.div}>
 
                                     <TextField 
-                                        style={{margin: 0}}                                                        
+                                        style={{margin: 0}}                                                      
                                         label='Tecnologia'
                                         margin='normal'                
                                         size='medium'
@@ -194,8 +213,7 @@ const Dashboard = ({ authorized }) => {
                                     </TextField>                           
 
                                     <FormControl variant="outlined" 
-                                        sx={style}
-                                        // sx={{ m: 1, minWidth: 150 }}
+                                        sx={style}                                        
                                         >
                                         <InputLabel >
                                             Status

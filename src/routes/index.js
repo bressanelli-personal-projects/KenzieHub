@@ -33,11 +33,16 @@ const Routes = () => {
             </Route>
 
             <Route path='/signup'>
-                <Signup authorized={authorized}/>
+                <Signup 
+                    authorized={authorized}                    
+                />
             </Route>
 
             <Route path='/dashboard'>
-                <Dashboard authorized={authorized}/>
+                <Dashboard 
+                    authorized={authorized}
+                    setAuthorized={setAuthorized}
+                />
             </Route>
             
         </Switch>

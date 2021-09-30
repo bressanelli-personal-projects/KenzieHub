@@ -17,11 +17,14 @@ const useStyles = makeStyles((theme) => ({
 
     form: {
         padding: '10px',
+        
     },
 
     div: {
         display: 'flex',
+        flexWrap: 'wrap',
         alignItems: 'center',
+        justifyContent: 'center',
         margin: '10px 0',
     },
 

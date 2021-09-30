@@ -12,8 +12,24 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import { useEffect, useState } from "react";
 import Card from '../../components/Card/index';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+
 
 const Dashboard = ({ authorized }) => {
+
+    const style = {
+        mt: {
+           xs: 1, 
+           sm: 0,
+        },
+        minWidth: {
+            xs: 200,
+            sm: 200,            
+        },
+    }
 
     const [ token ] = useState(JSON.parse(localStorage.getItem('@Kehub:token')) || '');
     const [ user ] = useState(JSON.parse(localStorage.getItem('@Kehub:user')) || '');
@@ -25,15 +41,25 @@ const Dashboard = ({ authorized }) => {
     const history = useHistory();
     const location = useLocation();
 
+    // status ===================
+
+    const [status, setStatus] = useState("Iniciante");
+
+    const handleStatus = (event) => {
+        setStatus(event.target.value);
+    };
+
+    // status ===================
+
     const schema = yup.object().shape({       
         title: yup.string().required('Campo obrigatório'),
-        status: yup.string().required('Campo obrigatório')
+        // status: yup.string().required('Campo obrigatório')
     });
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(schema)});
 
-    const onSubmitForm = ({ title, status }) => {
+    const onSubmitForm = ({ title }) => {
 
         api.post('/users/techs', {
             'title': title,
@@ -84,8 +110,18 @@ const Dashboard = ({ authorized }) => {
     };
 
     const editFunction = (data, techId, status) => {
+            
+            if(data.toLowerCase() !== 'intermediário' &&
+                data.toLowerCase() !== 'avançado'
+            ) {toast.error(
+                'Escolha um status válido! Veja ?')
+                return null}
 
-        if(data.toLowerCase() === 'intermediário' || data.toLowerCase() ==='avançado') {
+            if(status.toLowerCase() === 'avançado' ||
+                status.toLowerCase() === data.toLowerCase()) {
+                toast.error(
+                    'Mudança não permitida! Veja ?')
+                    return null}            
 
             api.put(`/users/techs/${techId}`, 
         {
@@ -98,12 +134,10 @@ const Dashboard = ({ authorized }) => {
         }).then((response) => {
             showUser();
             setIsShow(true);
-            toast.success('Modificado com sucesso');
+            toast.success('Tecnologia atualizada com sucesso');
         }).catch((err) => {
             toast.error('Modificação não concluida');         
-        })} else {           
-            toast.error('Entrada inválida');
-        }        
+        })       
     };
 
     useEffect(() => {
@@ -155,23 +189,26 @@ const Dashboard = ({ authorized }) => {
                                         color='primary'
                                         {...register('title')}
                                         error={!!errors.title}
-                                        helperText={errors.title?.message ? 
-                                            errors.title?.message :
-                                                'Ex.: Python, C++, Java, etc.'}
+                                        helperText={errors.title?.message}
                                     >
-                                    </TextField>
-                                
+                                    </TextField>                           
 
-                                    <TextField                               
-                                        label="Status" 
-                                                                               
-                                        {...register('status')}
-                                        error={!!errors.status}
-                                        helperText={errors.status?.message ? 
-                                            errors.status?.message : 
-                                                'Iniciante / Intermediário / Avançado'}            
-                                    >   
-                                    </TextField>
+                                    <FormControl variant="outlined" 
+                                        sx={style}
+                                        // sx={{ m: 1, minWidth: 150 }}
+                                        >
+                                        <InputLabel >
+                                            Status
+                                        </InputLabel>
+                                        <Select                        
+                                            value={status}
+                                            onChange={handleStatus}                                  
+                                        >                       
+                                            <MenuItem value={'Iniciante'}>Iniciante</MenuItem>
+                                            <MenuItem value={'Intermediário'}>Intermediário</MenuItem>
+                                            <MenuItem value={'Avançado'}>Avançado</MenuItem>
+                                        </Select>
+                                    </FormControl>
 
                                 </div>                    
 

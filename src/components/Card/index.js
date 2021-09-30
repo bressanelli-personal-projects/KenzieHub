@@ -53,10 +53,7 @@ const Card = ({ title, status, delClick, techId, editFunction, local }) => {
 
                 <div className={classes.editControl}>                   
 
-                    <form  onSubmit={(e) => {
-                        handleEditForm(e)
-                        editFunction()
-                    }}>                
+                    <form  onSubmit={handleEditForm}>                
 
                         {isShow && <Button
                             variant='contained'

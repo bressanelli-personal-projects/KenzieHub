@@ -198,6 +198,7 @@ const Dashboard = ({ authorized, setAuthorized }) => {
                                         localStorage.removeItem("@Kehub:token");
                                         localStorage.removeItem("@Kehub:user");
                                         setAuthorized(false);
+                                        toast.warning('Logout efetuado! Até logo!!');
                                         history.push("/");
                                     }}
                                 >

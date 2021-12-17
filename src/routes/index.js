@@ -6,48 +6,35 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 
 const Routes = () => {
+  const [authorized, setAuthorized] = useState(false);
 
-    const [ authorized, setAuthorized ] = useState(false);
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("@Kehub:token"));
 
-    useEffect(() => {
-        const token =JSON.parse(localStorage.getItem('@Kehub:token'));
+    if (token) {
+      return setAuthorized(true);
+    }
+  }, [authorized]);
 
-        if(token) {
-            return setAuthorized(true);
-        }
-    }, [authorized]);
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Home authorized={authorized} />
+      </Route>
 
-    return(
+      <Route path="/login">
+        <Login authorized={authorized} setAuthorized={setAuthorized} />
+      </Route>
 
-        <Switch>
+      <Route path="/signup">
+        <Signup authorized={authorized} />
+      </Route>
 
-            <Route exact path='/'>
-                <Home authorized={authorized}/>
-            </Route>
-
-            <Route path='/login'>
-                <Login 
-                    authorized={authorized}
-                    setAuthorized={setAuthorized}    
-                />
-            </Route>
-
-            <Route path='/signup'>
-                <Signup 
-                    authorized={authorized}                    
-                />
-            </Route>
-
-            <Route path='/dashboard'>
-                <Dashboard 
-                    authorized={authorized}
-                    setAuthorized={setAuthorized}
-                />
-            </Route>
-            
-        </Switch>
-        
-    );
-}
+      <Route path="/dashboard">
+        <Dashboard authorized={authorized} setAuthorized={setAuthorized} />
+      </Route>
+    </Switch>
+  );
+};
 
 export default Routes;

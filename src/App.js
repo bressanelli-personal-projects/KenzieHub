@@ -1,16 +1,13 @@
-import { ToastContainer } from 'material-react-toastify';
-import 'material-react-toastify/dist/ReactToastify.css';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { ToastContainer } from "material-react-toastify";
+import "material-react-toastify/dist/ReactToastify.css";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
-import Routes from './routes';
+import Routes from "./routes";
 
 function App() {
-
   return (
-
     <div className="App">
-
-      <ToastContainer        
+      <ToastContainer
         position="top-right"
         autoClose={3000}
         hideProgressBar
@@ -24,10 +21,8 @@ function App() {
 
       <CssBaseline />
 
-      <Routes />      
-     
+      <Routes />
     </div>
-
   );
 }
 
